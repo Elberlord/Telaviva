@@ -1,17 +1,9 @@
-# Instalación local y publicación en GitHub
+# Actualización desde PowerShell
 
-**Carpeta local:** `Documentos\GitHub\Telaviva` (o equivalente de la carpeta Documentos en tu sistema).
-**Repo remoto:** `https://github.com/Elberlord/Telaviva` — rama `main`.
+1. Coloca `Actualizar-TelaViva-v1.3.ps1` en Descargas.
+2. Ejecuta `powershell -NoProfile -ExecutionPolicy Bypass -File "$env:USERPROFILE\Downloads\Actualizar-TelaViva-v1.3.ps1"`.
+3. El instalador verifica rama main, `origin` correcto, árbol Git limpio y escribe únicamente archivos del proyecto (no `.git`, no backups). Conserva `js/config.js`.
+4. Comprueba sintaxis JS si tienes Node.js; crea commit y ejecuta `git push origin main`.
+5. Entra a https://elberlord.github.io/Telaviva/ y usa Ctrl+F5.
 
-1. Descarga `Actualizar-TelaViva.ps1` y guárdalo en **Descargas**.
-2. Ejecuta desde PowerShell:
-
-   ```powershell
-   powershell -NoProfile -ExecutionPolicy Bypass -File "$env:USERPROFILE\Downloads\Actualizar-TelaViva.ps1"
-   ```
-
-3. El script verifica que la carpeta ya sea un repo Git y que `origin` sea `Elberlord/Telaviva`. No inicializa Git, **no hace copias de seguridad**, y reemplaza únicamente los archivos correspondientes a Tela Viva.
-4. Actualiza los archivos, crea un commit de los archivos de esta versión y ejecuta `git push origin main`. Si falla la autenticación, puedes hacer el push desde GitHub Desktop.
-5. Ve a **Settings → Pages → Deploy from a branch**, selecciona `main` y `/ (root)`.
-
-**Seguridad:** jamás escribas contraseñas ni tokens en archivos del sitio; `js/config.js` es público. No se almacena ni envía ningún pedido al servidor; WhatsApp prepara el texto y el cliente debe enviarlo.
+Si el `push` falla por autenticación o red, el commit queda local.

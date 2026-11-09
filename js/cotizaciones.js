@@ -1,12 +1,24 @@
 'use strict';
-(function (TV) {
-  const { $, state, getGarment, getFabric, getColor, selectionLink } = TV;
-function makeQuote(){const recommended=getGarment().recommended.includes(state.fabric);const note=state.notes.trim();return `Hola, quiero solicitar una cotización de una prenda personalizada.\n\n🧵 *PRENDA:* ${getGarment().name}\n🪡 *TELA:* ${getFabric().name}\n🎨 *COLOR:* ${getColor().name}\n📏 *TALLA:* ${state.size}\n🔢 *CANTIDAD:* ${state.quantity}\n${note?`📝 *DETALLES:* ${note}\n`:''}${recommended?'':'⚠️ *Compatibilidad de tela y prenda por confirmar*\n'}\n🔗 *VER MI DISEÑO:* ${selectionLink()}\n\n¿Me pueden confirmar precio, disponibilidad y tiempo de confección?`}
-function announce(msg){$('notice').textContent=msg}
-function quote(){const number=String(TV.config?.whatsappNumber||'').replace(/\D/g,'');const whatsapp=number?`https://wa.me/${number}?text=${encodeURIComponent(makeQuote())}`:`https://wa.me/?text=${encodeURIComponent(makeQuote())}`;if(!number)announce('Número del negocio aún no configurado: WhatsApp te pedirá elegir un contacto.');else announce('Abriendo WhatsApp con los detalles de tu diseño…');window.open(whatsapp,'_blank','noopener,noreferrer')}
-async function share(){const link=selectionLink();try{await navigator.clipboard.writeText(link);announce('¡Enlace del diseño copiado! Puedes compartirlo.')}catch{const copy=document.createElement('textarea');copy.value=link;copy.style.position='fixed';copy.style.opacity='0';document.body.appendChild(copy);copy.select();const success=document.execCommand('copy');copy.remove();announce(success?'¡Enlace copiado!':'Copia el enlace desde la barra del navegador.')}}
-TV.makeQuote = makeQuote;
-TV.quote = quote;
-TV.share = share;
-TV.announce = announce;
-})(window.TelaViva = window.TelaViva || {});
+(function(TV){
+  function makeQuote(){
+    const {state}=TV,garment=TV.getGarment(),fabric=TV.getFabric(),color=TV.getColor();
+    const compatibility=garment.recommended.includes(fabric.id)?'':'\n⚠️ Tela y prenda: consultar compatibilidad de confección.';
+    return `Hola, deseo cotizar una prenda en Tela Viva.\n\n`+
+      `👗 *Prenda:* ${garment.name}\n🧵 *Tela:* ${fabric.name}\n🎨 *Color:* ${color.name}\n📏 *Talla:* ${state.size}\n🔢 *Cantidad:* ${state.quantity}`+
+      `${state.notes.trim()?'\n📝 *Detalles:* '+state.notes.trim():''}${compatibility}\n\n`+
+      `🔗 *Mi selección:* ${TV.selectionLink()}\n\n¿Me confirman disponibilidad, precio y tiempo de confección?`;
+  }
+  function notice(s){const el=TV.$('notice');if(el)el.textContent=s;}
+  function quote(){
+    const number=String(TV.config?.whatsappNumber||'').replace(/\D/g,'');
+    const url=`https://wa.me/${number}?text=${encodeURIComponent(makeQuote())}`;
+    if(!number)notice('Agrega el WhatsApp comercial en js/config.js. Por ahora podrás elegir a quién enviar el mensaje.');
+    window.open(url,'_blank','noopener,noreferrer');
+  }
+  async function save(){
+    const link=TV.selectionLink();
+    try{await navigator.clipboard.writeText(link);notice('Enlace del diseño copiado. Puedes guardarlo o compartirlo.');}
+    catch{const t=document.createElement('textarea');t.value=link;document.body.appendChild(t);t.select();const ok=document.execCommand('copy');t.remove();notice(ok?'Enlace copiado.':'Copia el enlace que aparece en el navegador.');}
+  }
+  TV.makeQuote=makeQuote;TV.quote=quote;TV.save=save;TV.notice=notice;
+})(window.TelaViva=window.TelaViva||{});

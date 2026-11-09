@@ -1,10 +1,20 @@
 'use strict';
-(function (TV) {
-  const { state, garments, fabrics, getFabric } = TV;
-function selectionLink(){const url=new URL(window.location.href);url.hash='personalizador';url.searchParams.set('prenda',state.garment);url.searchParams.set('tela',state.fabric);url.searchParams.set('color',String(state.color));url.searchParams.set('talla',state.size);url.searchParams.set('cantidad',String(state.quantity));url.searchParams.delete('nota');return url.toString()}
-function updateUrl(){try{history.replaceState(null,'',selectionLink())}catch(e){/* Esquemas file:// pueden impedir modificar la URL. */}}
-function restoreFromUrl(){const p=new URLSearchParams(location.search);const g=p.get('prenda'),f=p.get('tela'),c=Number(p.get('color')),s=p.get('talla'),q=Number(p.get('cantidad'));if(garments.some(x=>x.id===g))state.garment=g;if(fabrics.some(x=>x.id===f))state.fabric=f;if(Number.isInteger(c)&&c>=0&&c<getFabric().colors.length)state.color=c;if(['XS','S','M','L','XL','A medida'].includes(s))state.size=s;if(Number.isInteger(q)&&q>=1&&q<=99)state.quantity=q}
-TV.selectionLink = selectionLink;
-TV.updateUrl = updateUrl;
-TV.restoreFromUrl = restoreFromUrl;
-})(window.TelaViva = window.TelaViva || {});
+(function(TV){
+  const {state}=TV;
+  function selectionLink(){
+    const url=new URL(location.href);url.search='';url.hash='personalizador';
+    for(const [k,v] of Object.entries({prenda:state.garment,tela:state.fabric,color:TV.getColor().id,talla:state.size,cantidad:state.quantity}))url.searchParams.set(k,String(v));
+    return url.toString();
+  }
+  function restoreFromUrl(){
+    const p=new URLSearchParams(location.search);const garment=p.get('prenda'),fabric=p.get('tela'),color=p.get('color'),size=p.get('talla'),qty=Number(p.get('cantidad'));
+    if(TV.garments.some(g=>g.id===garment))state.garment=garment;
+    if(TV.fabrics.some(f=>f.id===fabric))state.fabric=fabric;
+    const colors=TV.getFabric().colors;const i=colors.findIndex(c=>c.id===color);
+    if(i>=0)state.color=i; else if(/^\d+$/.test(String(color)))state.color=Math.min(colors.length-1,Number(color));
+    if(['XS','S','M','L','XL','A medida'].includes(size))state.size=size;
+    if(Number.isInteger(qty)&&qty>=1&&qty<=99)state.quantity=qty;
+  }
+  function updateUrl(){try{history.replaceState(null,'',selectionLink())}catch(e){/* en file:// no siempre se permite */}}
+  TV.selectionLink=selectionLink;TV.restoreFromUrl=restoreFromUrl;TV.updateUrl=updateUrl;
+})(window.TelaViva=window.TelaViva||{});

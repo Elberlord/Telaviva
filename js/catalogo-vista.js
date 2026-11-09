@@ -1,8 +1,26 @@
 'use strict';
-(function (TV) {
-  const { $, fabrics, state, getFabric, getColor, texturePattern } = TV;
-function drawTiles(){const host=$('fabricTiles');host.replaceChildren();for(const fab of fabrics){const button=document.createElement('button');button.className='fabric-tile';button.type='button';const color=fab.colors[0];const tileId='tilecloth-'+fab.id;const t=texturePattern(fab,color).replace('id="cloth"',`id="${tileId}"`);button.innerHTML=`<div class="fabric-tile-preview"><img class="fabric-photo" loading="lazy" alt="Referencia fotográfica de textura: ${fab.name}" src="${TV.photoUrl('telas',fab.id)}" onerror="this.style.display='none'" /><svg viewBox="0 0 280 185" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>${t}<linearGradient id="fold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".3"/><stop offset=".5" stop-color="#000" stop-opacity=".12"/><stop offset="1" stop-color="#fff" stop-opacity=".16"/></linearGradient></defs><rect width="280" height="185" fill="url(#${tileId})"/><path d="M-15 110Q80 40 140 95T310 50V185H-15Z" fill="url(#fold)"/><path d="M-10 130Q70 60 135 115T310 65" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="12"/></svg></div><div class="fabric-tile-info"><span class="fabric-tile-name">${fab.name}</span><span class="fabric-tile-sub">${fab.colors.length} colores · ${fab.description}</span></div>`;button.addEventListener('click',()=>{state.fabric=fab.id;state.color=0;TV.render();$('personalizador').scrollIntoView({behavior:'smooth'});});host.appendChild(button)}}
-function renderSwatches(){const wrap=$('swatches');wrap.replaceChildren();getFabric().colors.forEach((c,i)=>{const b=document.createElement('button');b.type='button';b.className='swatch';b.style.background=c.hex;b.setAttribute('aria-label',c.name);b.setAttribute('aria-pressed',String(state.color===i));b.title=c.name;b.addEventListener('click',()=>{state.color=i;TV.render()});wrap.appendChild(b)});$('colorLabel').textContent=`${getColor().name} · ${getFabric().name}`}
-TV.drawTiles = drawTiles;
-TV.renderSwatches = renderSwatches;
-})(window.TelaViva = window.TelaViva || {});
+(function(TV){
+  function renderCatalog(){
+    const host=TV.$('fabricTiles');host.replaceChildren();
+    for(const fabric of TV.fabrics){
+      const color=fabric.colors[0];const card=document.createElement('button');card.type='button';card.className='fabric-tile';card.setAttribute('aria-label',`Elegir tela ${fabric.name}`);
+      const img=document.createElement('img');img.src=TV.fabricPhoto(fabric.id,color.id);img.alt=`Fotografía conceptual de la textura ${fabric.name}`;img.loading='lazy';
+      const title=document.createElement('strong');title.textContent=fabric.name;
+      const subtitle=document.createElement('small');subtitle.textContent=fabric.description;
+      card.append(img,title,subtitle);
+      card.addEventListener('click',()=>{TV.state.fabric=fabric.id;TV.state.color=0;TV.state.slide=0;TV.render();TV.$('personalizador').scrollIntoView({behavior:'smooth',block:'start'});});
+      host.appendChild(card);
+    }
+  }
+  function renderSwatches(){
+    const host=TV.$('swatches'),fabric=TV.getFabric();host.replaceChildren();
+    fabric.colors.forEach((color,index)=>{
+      const b=document.createElement('button');b.type='button';b.className='swatch';b.title=color.name;b.setAttribute('aria-label',`${fabric.name}, ${color.name}`);b.setAttribute('aria-pressed',String(index===TV.state.color));
+      b.style.setProperty('--swatch-color',color.hex);
+      const img=document.createElement('img');img.src=TV.fabricPhoto(fabric.id,color.id);img.alt='';img.loading='eager';b.appendChild(img);
+      b.addEventListener('click',()=>{TV.state.color=index;TV.state.slide=0;TV.render();});host.appendChild(b);
+    });
+    TV.$('colorLabel').textContent=TV.getColor().name;
+  }
+  TV.renderCatalog=renderCatalog;TV.renderSwatches=renderSwatches;
+})(window.TelaViva=window.TelaViva||{});
