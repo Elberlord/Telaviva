@@ -1,9 +1,11 @@
-# Actualización desde PowerShell
+# Instalar Tela Viva v1.4 sin copias de seguridad
 
-1. Coloca `Actualizar-TelaViva-v1.3.ps1` en Descargas.
-2. Ejecuta `powershell -NoProfile -ExecutionPolicy Bypass -File "$env:USERPROFILE\Downloads\Actualizar-TelaViva-v1.3.ps1"`.
-3. El instalador verifica rama main, `origin` correcto, árbol Git limpio y escribe únicamente archivos del proyecto (no `.git`, no backups). Conserva `js/config.js`.
-4. Comprueba sintaxis JS si tienes Node.js; crea commit y ejecuta `git push origin main`.
-5. Entra a https://elberlord.github.io/Telaviva/ y usa Ctrl+F5.
+Desde PowerShell, con el archivo en Descargas:
 
-Si el `push` falla por autenticación o red, el commit queda local.
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File "$env:USERPROFILE\Downloads\Actualizar-TelaViva-v1.4.ps1"
+```
+
+Requisitos: repo limpio en `Documentos/GitHub/Telaviva`, rama `main` y remoto `Elberlord/Telaviva`. El script escribe la versión, conserva `js/config.js`, valida sintaxis JavaScript si existe Node, crea commit y realiza `git push origin main`. No hace `git init`, no crea backups ni fuerza push.
+
+GitHub Pages: https://elberlord.github.io/Telaviva/ (usar Ctrl+F5 tras publicación).

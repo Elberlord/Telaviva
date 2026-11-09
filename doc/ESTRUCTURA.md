@@ -15,3 +15,7 @@
 - `assets/modelos/`: imágenes conceptuales de vestido sobre modelo.
 - `assets/fotos/`: referencias de otras prendas ya existentes en v1.2 (se preservan).
 - `doc/`: documentación y fuentes visuales.
+
+## v1.4
+
+`js/fotografias.js`: mapa de fotos exactas y fotos de referencia por prenda/tono. `js/visualizador.js`: controles de cambio, muestra en la foto, y manejo de error sin sustituciones engañosas. `css/styles.css`: reglas compactas al final.

@@ -1,20 +1,11 @@
-# Tela Viva v1.3 — galería fotográfica estática
+# Tela Viva v1.4 — selector compacto y galería con referencias honestas
 
-Interfaz inspirada en la maqueta visual seleccionada: tres columnas, controles de prenda/tela/color/talla/cantidad, galería de modelos, fotografía de la muestra seleccionada, resumen y cotización por WhatsApp. Se publica en GitHub Pages, sin backend.
+- 8 telas, 16 muestras conceptuales, 5 tipos de prenda.
+- Compactación de controles, dropdowns, tipografía y paneles. Se eliminaron los números decorativos.
+- Los modelos muestran siempre la prenda elegida o, si no carga la foto, un estado de respaldo con tela/prenda correctas.
+- Fotos de los colores específicos cuando existen; en ausencia de combinación exacta, se indica expresamente que la imagen es una referencia y se presenta la muestra seleccionada encima del visualizador.
+- Selección, resumen, URL y cotización siempre corresponden al estado actual.
+- Configuración del teléfono de WhatsApp: `js/config.js`, campo `whatsappNumber`, sin prefijo +.
+- Documentación en `doc/`, JavaScript distribuido por responsabilidad.
 
-## Fotografías
-
-- `assets/telas`: 16 recortes individuales de una generación fotorealista (dos colores de cada una de 8 telas), **no fotos de inventario físico**. Son demostraciones visuales.
-- `assets/modelos`: dos fotografías conceptuales originales para vestido de lino verde salvia y satén vino.
-- `assets/fotos/modelos-*`: referencias de prendas procedentes de la v1.2, seleccionadas de Pexels. Los derechos de las fotografías se describen en `IMAGENES_Y_LICENCIAS.md`.
-- Cuando falta una fotografía para una combinación concreta, se muestra la foto del tipo de prenda con etiqueta de referencia, **no se recolorea** ni se representa como resultado exacto. La muestra de tejido seleccionada siempre cambia.
-
-El menú presenta solamente colores que tienen muestra propia en la primera entrega. Para añadir más, agrega imagen a `assets/telas` y entrada en `js/catalogo.js`.
-
-## WhatsApp
-
-Define `whatsappNumber` en `js/config.js` (por ejemplo, un número costarricense con prefijo 506). Sin número, WhatsApp abre el flujo para seleccionar contacto.
-
-## Publicación
-
-Subir a la rama `main` del repositorio `Elberlord/Telaviva`. GitHub Pages: `main` + `/(root)`.
+Limitación de diseño estático: NO puede mostrar cada combinación físicamente exacta si no se dispone de una imagen propia de esa combinación. No recoloreamos las imágenes genéricas ni presentamos falso realismo. Ver `doc/IMAGENES_Y_LICENCIAS.md`.
