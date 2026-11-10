@@ -42,3 +42,23 @@ select{min-height:37px;padding:7px 31px 7px 11px;font-size:13px}
 @media(max-width:1350px){.main-nav a{font-size:11px;padding:9px 6px}.brand{min-width:200px}.brand-name{font-size:41px}.selection-panel{padding:12px 14px}.material-section>img{height:185px}}
 @media(max-width:1010px){.workspace{grid-template-columns:1fr 1fr}.model-view{min-height:485px}.main-nav a{font-size:20px}.fabric-tile img{height:128px}}
 @media(max-width:680px){.site-header{height:62px}.brand{min-width:auto}.brand-name{font-size:35px}.brand-tag{font-size:7px}.logo-machine{width:45px;height:42px}.workspace{margin-top:11px;gap:9px}.model-view{height:390px;min-height:390px;max-height:390px}.selection-panel{padding:17px}.material-section>img{height:175px}select,textarea,input{font-size:16px!important}.fabric-tile img{height:145px}.preview-status{font-size:10px!important}.model-fabric-chip{max-width:174px}.model-fabric-chip img{height:48px;width:48px}.model-fabric-chip b{font-size:11px}}
+
+/* Tela Viva v1.5.1: mostrar TODA la fotografia sin recortes. */
+/* "contain" conserva siempre los bordes de la foto. Puede dejar mÃ¡rgenes: es intencional. */
+.model-view {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eae7e4;
+}
+#modelPhoto {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain !important;
+  object-position: center center !important;
+  image-rendering: auto;
+}
+/* Fin Tela Viva v1.5.1 */
