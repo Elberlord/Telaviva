@@ -10,17 +10,62 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/navegacion.css?v=17">
 </head>
 <body>
   <header class="site-header" id="inicio">
-    <a class="brand" href="#inicio" aria-label="Tela Viva, inicio">
-      <svg class="logo-machine" viewBox="0 0 75 65" fill="none" aria-hidden="true"><path d="M7 34V16q0-5 5-5h31q5 0 5 5v11H29v8h25v21H7V34Zm41-20h9m-29 8V10m8 24v13m-17 0h35m-37-7h4m39-18h10m-8-8v17m-58 30c14-2 24-1 36 1s23 1 33-2" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="57" cy="33" r="8" stroke="currentColor" stroke-width="2.8"/><circle cx="58" cy="33" r="2" fill="currentColor"/></svg>
-      <span class="brand-text"><span class="brand-name">Tela Viva</span><span class="brand-tag">DISEÑA A TU MANERA</span></span>
+  <a class="tv-brand" href="#inicio" aria-label="Tela Viva — volver al inicio">
+    <img class="tv-brand-mark" src="assets/marca/tela-viva-simbolo.svg" alt="" width="65" height="65">
+    <span class="tv-brand-copy"><span class="tv-brand-name">Tela Viva</span><span class="tv-brand-slogan">DISEÑA A TU MANERA</span></span>
+  </a>
+  <nav id="tv-main-nav" class="tv-nav" aria-label="Navegación principal">
+    <a class="tv-nav-link" href="#inicio">
+      <span class="tv-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10h-6v-7H9v7H3Z"/></svg></span>
+      <span>Inicio</span>
     </a>
-    <nav class="main-nav" aria-label="Navegación principal">
-      <a href="#inicio">⌂ <span>Inicio</span></a><a class="nav-active" href="#personalizador">♧ <span>Diseña tu prenda</span></a><a href="#catalogo">▧ <span>Catálogo de telas</span></a><a href="#inspiracion">▧ <span>Inspiración</span></a><a href="#contacto">◉ <span>Contáctanos</span></a>
-    </nav>
-  </header>
+    <details class="tv-nav-group">
+      <summary class="tv-nav-summary">
+        <span class="tv-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h10M9 3l1 4-5 12q7 4 14 0L14 7l1-4M5 19c5 2 9 2 14 0"/></svg></span>
+        <span>Diseña tu prenda</span><span class="tv-chevron" aria-hidden="true"></span>
+      </summary>
+      <div class="tv-nav-panel">
+        <strong class="tv-nav-panel-title">Diseña a tu manera</strong>
+        <a href="#personalizador">Abrir diseñador</a>
+        <a href="?prenda=vestido&amp;tela=lino&amp;color=verde-salvia#personalizador">Vestidos largos</a>
+        <a href="?prenda=blusa&amp;tela=algodon&amp;color=blanco#personalizador">Blusas</a>
+        <a href="?prenda=enagua&amp;tela=mezclilla&amp;color=azul-indigo#personalizador">Faldas y enaguas</a>
+        <a href="?prenda=pantalon&amp;tela=mezclilla&amp;color=azul-indigo#personalizador">Pantalones</a>
+        <a href="?prenda=bano&amp;tela=licra&amp;color=negro#personalizador">Trajes de baño</a>
+      </div>
+    </details>
+    <details class="tv-nav-group">
+      <summary class="tv-nav-summary">
+        <span class="tv-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="3"/><path d="M8 9h8M8 12h8M8 15h5"/></svg></span>
+        <span>Catálogo de telas</span><span class="tv-chevron" aria-hidden="true"></span>
+      </summary>
+      <div class="tv-nav-panel">
+        <strong class="tv-nav-panel-title">Explora nuestras telas</strong>
+        <a href="#catalogo">Ver catálogo completo</a>
+        <a href="?prenda=vestido&amp;tela=lino&amp;color=verde-salvia#personalizador">Lino</a>
+        <a href="?prenda=enagua&amp;tela=mezclilla&amp;color=azul-indigo#personalizador">Mezclilla</a>
+        <a href="?prenda=vestido&amp;tela=saten&amp;color=vino#personalizador">Satén</a>
+        <a href="?prenda=blusa&amp;tela=algodon&amp;color=blanco#personalizador">Algodón</a>
+        <a href="?prenda=vestido&amp;tela=licra&amp;color=negro#personalizador">Licra</a>
+        <a href="?prenda=vestido&amp;tela=chifon&amp;color=rosa#personalizador">Chifón</a>
+        <a href="?prenda=vestido&amp;tela=crepe&amp;color=granate#personalizador">Crepé</a>
+        <a href="?prenda=pantalon&amp;tela=gabardina&amp;color=caqui#personalizador">Gabardina</a>
+      </div>
+    </details>
+    <a class="tv-nav-link" href="#inspiracion">
+      <span class="tv-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 14.5 9.5 22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5Z"/></svg></span>
+      <span>Inspiración</span>
+    </a>
+    <a class="tv-nav-link is-featured" href="#contacto">
+      <span class="tv-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v12H9l-5 4V5Z"/><path d="M8 9h8M8 13h5"/></svg></span>
+      <span>Contáctanos</span>
+    </a>
+  </nav>
+</header>
   <main>
     <section class="workspace" id="personalizador" aria-label="Diseñador de prendas">
       <div class="panel selection-panel">
@@ -51,5 +96,6 @@
   </main>
   <footer id="contacto"><strong>Tela Viva</strong><span>Diseña a tu manera · © <span id="year">2026</span></span><a href="#personalizador">Solicitar cotización</a></footer>
   <script defer src="js/config.js"></script><script defer src="js/catalogo.js"></script><script defer src="js/estado.js"></script><script defer src="js/fotografias.js"></script><script defer src="js/enlaces.js"></script><script defer src="js/cotizaciones.js"></script><script defer src="js/catalogo-vista.js"></script><script defer src="js/recoloracion.js"></script><script defer src="js/visualizador.js"></script><script defer src="js/interfaz.js"></script>
+  <script defer src="js/navegacion.js?v=17"></script>
 </body>
 </html>
