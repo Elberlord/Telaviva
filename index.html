@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/navegacion.css?v=17">
+  <link rel="stylesheet" href="css/movil-2panel.css?v=19">
 </head>
 <body>
   <header class="site-header" id="inicio">
@@ -66,6 +67,7 @@
     </a>
   </nav>
 </header>
+  <p class="tv-rotate-hint">Gira el telefono para ver los controles y la prenda al mismo tiempo.</p>
   <main>
     <section class="workspace" id="personalizador" aria-label="Diseñador de prendas">
       <div class="panel selection-panel">
@@ -97,5 +99,10 @@
   <footer id="contacto"><strong>Tela Viva</strong><span>Diseña a tu manera · © <span id="year">2026</span></span><a href="#personalizador">Solicitar cotización</a></footer>
   <script defer src="js/config.js"></script><script defer src="js/catalogo.js"></script><script defer src="js/estado.js"></script><script defer src="js/fotografias.js"></script><script defer src="js/enlaces.js"></script><script defer src="js/cotizaciones.js"></script><script defer src="js/catalogo-vista.js"></script><script defer src="js/recoloracion.js"></script><script defer src="js/visualizador.js"></script><script defer src="js/interfaz.js"></script>
   <script defer src="js/navegacion.js?v=17"></script>
+  <button id="tvMobileQuote" class="tv-mobile-quote" type="button" aria-label="Cotizar la seleccion actual por WhatsApp">
+    <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 11.5a8.5 8.5 0 0 1-12.4 7.6L3 20l.9-4.6A8.5 8.5 0 1 1 20 11.5Z"/><path d="m8 9 2 2 3-3M8 15h7"/></svg>
+    <span>Cotizar</span>
+  </button>
+  <script defer src="js/movil-2panel.js?v=19"></script>
 </body>
 </html>
