@@ -20,7 +20,7 @@
       img.hidden=false;fallback.hidden=true;
       img.alt=special?`${garment.name} de ${fabric.name}: ${shown.modelName}, color ${color.name}`:`${garment.name}, color ${color.name}; simulación digital`;
       img.onerror=()=>{if(ticket===TV.previewTicket)fallBackNow();};
-      // Vestidos de licra: 88 imágenes FIJAS. Nunca recalcular con Canvas.
+      // Vestidos y faldas de licra: imágenes precalculadas; Canvas no recalcula esos colores.
       img.src=shown.photo;
       if(!special){
         TV.recolorPhoto(shown.photo,shown.mask,color.hex).then(url=>{
@@ -31,7 +31,7 @@
     const status=TV.$('previewStatus');
     status.textContent=special?`${shown.modelName} · ${color.name}`:'Color simulado sobre la misma fotografía';
     TV.$('photoCaption').textContent=special?
-      `Vestido de licra — ${shown.modelName}. Color: ${color.name}. Imagen ilustrativa. Usa las flechas para ver los cuatro cortes.`:
+      `Licra · ${shown.modelName}. Color: ${color.name}. Simulación visual; usa las flechas para recorrer los ${pics.length} diseños.`:
       `${garment.name}: ${color.name}. Modelo, pose y fondo fijos; la textura de ${fabric.name} es orientativa, no una confección real.`;
     const many=pics.length>1;
     TV.$('modelCounter').hidden=!many;
@@ -54,7 +54,7 @@
     TV.$('compatibility').textContent=ok?'✓ Material recomendado para esta prenda':'⚠ Esta tela no está recomendada para esta prenda. Consultar confección.';
     TV.$('compatibility').dataset.ok=String(ok);
     TV.$('resultThumb').src=special?shown.photo:swatch;
-    TV.$('resultThumb').alt=special?`Vestido seleccionado: ${shown.modelName} en ${color.name}`:`Tela: ${fabric.name}, ${color.name}`;
+    TV.$('resultThumb').alt=special?`Diseño seleccionado: ${shown.modelName} en ${color.name}`:`Tela: ${fabric.name}, ${color.name}`;
     TV.$('resultGarment').textContent=special?`${garment.name} · ${shown.modelName}`:garment.name;
     TV.$('resultFabric').textContent=fabric.name;
     TV.$('resultColor').textContent=color.name;

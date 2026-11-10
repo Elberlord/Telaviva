@@ -28,8 +28,8 @@
       const img=document.createElement('img');img.src=TV.fabricPhoto(fabric.id,color.id);img.alt='';img.loading='eager';b.appendChild(img);
       b.addEventListener('click',()=>{
         TV.state.color=index;
-        // En vestidos de licra se CONSERVA el modelo al cambiar solamente de color.
-        if(!(TV.state.fabric==='licra'&&TV.state.garment==='vestido'))TV.state.slide=0;
+        // En vestidos y enaguas de licra conservar el modelo al cambiar de color.
+        if(!(TV.state.fabric==='licra'&&['vestido','enagua'].includes(TV.state.garment)))TV.state.slide=0;
         TV.render();
       });host.appendChild(b);
     });

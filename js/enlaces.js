@@ -4,7 +4,7 @@
   function selectionLink(){
     const url=new URL(location.href);url.search='';url.hash='personalizador';
     const selection={prenda:state.garment,tela:state.fabric,color:TV.getColor().id,talla:state.size,cantidad:state.quantity};
-    if(state.garment==='vestido'&&state.fabric==='licra')selection.modelo=String(state.slide+1);
+    if(state.fabric==='licra'&&['vestido','enagua'].includes(state.garment))selection.modelo=String(state.slide+1);
     for(const [k,v] of Object.entries(selection))url.searchParams.set(k,String(v));
     return url.toString();
   }
@@ -17,7 +17,8 @@
     if(['XS','S','M','L','XL','A medida'].includes(size))state.size=size;
     if(Number.isInteger(qty)&&qty>=1&&qty<=99)state.quantity=qty;
     const model=Number(p.get('modelo'));
-    if(state.garment==='vestido'&&state.fabric==='licra'&&Number.isInteger(model)&&model>=1&&model<=TV.licraVestidos.length)state.slide=model-1;
+    const count=state.fabric==='licra'?(state.garment==='vestido'?TV.licraVestidos.length:state.garment==='enagua'?TV.licraEnaguas.length:0):0;
+    if(Number.isInteger(model)&&model>=1&&model<=count)state.slide=model-1;
   }
   function updateUrl(){try{history.replaceState(null,'',selectionLink())}catch(e){/* local */}}
   TV.selectionLink=selectionLink;TV.restoreFromUrl=restoreFromUrl;TV.updateUrl=updateUrl;
