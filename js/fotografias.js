@@ -11,7 +11,7 @@
   const styles={vestido:'vestido',bano:'bano',blusa:'blusa',pantalon:'pantalon',enagua:'enagua'};
   function getGallery(garment,fabric,color){
     if(garment.id==='vestido' && fabric.id==='licra'){
-      const tone=['gris','negro','coral'].includes(color.id)?color.id:'gris';
+      const tone=color.id; // El catálogo garantiza una imagen precalculada para cada tono.
       return licraVestidos.map((style,index)=>({
         photo:`assets/modelos/licra-vestido/${style.id}-${tone}.webp`,
         mask:null,exact:true,preRendered:true,modelId:style.id,modelName:style.name,modelIndex:index,

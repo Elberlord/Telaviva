@@ -20,7 +20,7 @@
       img.hidden=false;fallback.hidden=true;
       img.alt=special?`${garment.name} de ${fabric.name}: ${shown.modelName}, color ${color.name}`:`${garment.name}, color ${color.name}; simulación digital`;
       img.onerror=()=>{if(ticket===TV.previewTicket)fallBackNow();};
-      // Vestidos de licra: 12 imágenes FIJAS. Nunca recalcular con Canvas.
+      // Vestidos de licra: 88 imágenes FIJAS. Nunca recalcular con Canvas.
       img.src=shown.photo;
       if(!special){
         TV.recolorPhoto(shown.photo,shown.mask,color.hex).then(url=>{

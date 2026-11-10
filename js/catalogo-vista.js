@@ -13,7 +13,15 @@
     }
   }
   function renderSwatches(){
-    const host=TV.$('swatches'),fabric=TV.getFabric();host.replaceChildren();
+    const host=TV.$('swatches'),fabric=TV.getFabric();
+    const oldScroll=TV._swatchFabric===fabric.id ? host.scrollTop : 0;
+    TV._swatchFabric=fabric.id;
+    host.replaceChildren();
+    // Many licra tones: keep selector compact, accessible via wheel or touch scroll.
+    host.style.maxHeight=fabric.id==='licra'?'126px':'';
+    host.style.overflowY=fabric.id==='licra'?'auto':'';
+    host.style.alignContent=fabric.id==='licra'?'flex-start':'';
+    host.style.padding=fabric.id==='licra'?'4px 3px 5px':'';
     fabric.colors.forEach((color,index)=>{
       const b=document.createElement('button');b.type='button';b.className='swatch';b.title=color.name;b.setAttribute('aria-label',`${fabric.name}, ${color.name}`);b.setAttribute('aria-pressed',String(index===TV.state.color));
       b.style.setProperty('--swatch-color',color.hex);
