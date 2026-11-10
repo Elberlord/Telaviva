@@ -14,26 +14,27 @@
       TV.$('modelFallbackTitle').textContent=garment.name;
       TV.$('previewStatus').textContent='Modelo sin fotografía disponible';
     };
-    // Limpiar manejadores anteriores para evitar mostrar foto de una selección anterior.
+    // Una misma fotografía por estilo; la recoloración cambia SOLO los píxeles de la prenda.
+    const ticket=TV.previewTicket=(TV.previewTicket||0)+1;
     img.onload=null;img.onerror=null;
     if(shown){
       img.hidden=false;fallback.hidden=true;
-      img.alt=shown.exact?`Imagen conceptual de ${garment.name} en ${fabric.name} ${color.name}`:`Fotografía de referencia: ${garment.name}; la tela ${fabric.name} ${color.name} se muestra en la muestra contigua`;
-      img.onload=()=>{fallback.hidden=true;img.hidden=false;};
-      img.onerror=fallBackNow;
+      img.alt=`${garment.name} en color ${color.name}; simulación digital, tejido ilustrativo`;
+      img.onerror=()=>{if(ticket===TV.previewTicket)fallBackNow();};
       img.src=shown.photo;
-    } else {fallBackNow();}
-    TV.$('previewStatus').textContent=shown?.exact?'Imagen conceptual de esta combinación':'Modelo de referencia · ver muestra de tela';
-    const caption=TV.$('photoCaption');
-    caption.textContent=shown?.exact?'Vista conceptual de la prenda y material seleccionados.':`Referencia visual de ${garment.name}. ${shown?.caption||''} La muestra visible identifica la tela y color elegidos.`;
-    TV.$('modelCounter').textContent=`${idx+1} / ${pics.length}`;
-    TV.$('modelCounter').hidden=pics.length<2;
-    TV.$('modelPrev').hidden=pics.length<2;TV.$('modelNext').hidden=pics.length<2;
+      TV.recolorPhoto(shown.photo,shown.mask,color.hex).then(url=>{
+        if(ticket===TV.previewTicket){img.src=url;img.hidden=false;fallback.hidden=true;}
+      }).catch(()=>{if(ticket===TV.previewTicket)TV.$('previewStatus').textContent='Fotografía base sin recoloración';});
+    }else{fallBackNow();}
+    TV.$('previewStatus').textContent='Color simulado sobre la misma fotografía';
+    TV.$('photoCaption').textContent=`${garment.name}: ${color.name}. Modelo, pose y fondo fijos; la textura de ${fabric.name} es orientativa, no una confección real.`;
+    TV.$('modelCounter').hidden=true;
+    TV.$('modelPrev').hidden=true;TV.$('modelNext').hidden=true;
     TV.$('modelFabricChipImage').src=swatch;
     TV.$('modelFabricChipImage').alt=`Tejido seleccionado: ${fabric.name} ${color.name}`;
     TV.$('modelChipColor').textContent=color.name;
     TV.$('modelChipFabric').textContent=fabric.name;
-    TV.$('modelFabricChip').hidden=Boolean(shown?.exact);
+    TV.$('modelFabricChip').hidden=false;
     const sample=TV.$('selectedFabricPhoto');sample.src=swatch;sample.alt=`Muestra de ${fabric.name}, color ${color.name}`;
     TV.$('selectedFabricName').textContent=fabric.name;TV.$('selectedColorName').textContent=`Color: ${color.name}`;
     TV.$('fabricDescription').textContent=fabric.description+'.';TV.$('fabricTexture').textContent=fabric.texture;
