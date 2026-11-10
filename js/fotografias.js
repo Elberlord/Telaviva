@@ -1,13 +1,28 @@
 'use strict';
 (function(TV){
-  // Un retrato base por estilo. La modelo y el fondo nunca cambian al seleccionar color.
-  // La recoloración es una simulación: NO reproduce la composición o trama real de otra tela.
+  // Vestidos de licra aprobados: una fotografía estática por diseño/color.
+  // Los cambios de color NUNCA aplican máscara en el navegador para este grupo.
+  const licraVestidos = [
+    {id:'cuello-alto',name:'Cuello alto · manga larga'},
+    {id:'tirantes-abertura',name:'Tirantes · abertura lateral'},
+    {id:'asimetrico',name:'Asimétrico · un hombro'},
+    {id:'halter-abertura',name:'Halter · abertura lateral'}
+  ];
   const styles={vestido:'vestido',bano:'bano',blusa:'blusa',pantalon:'pantalon',enagua:'enagua'};
   function getGallery(garment,fabric,color){
+    if(garment.id==='vestido' && fabric.id==='licra'){
+      const tone=['gris','negro','coral'].includes(color.id)?color.id:'gris';
+      return licraVestidos.map((style,index)=>({
+        photo:`assets/modelos/licra-vestido/${style.id}-${tone}.webp`,
+        mask:null,exact:true,preRendered:true,modelId:style.id,modelName:style.name,modelIndex:index,
+        caption:`Vestido de licra, corte ${style.name}, color ${color.name}. Fotografía conceptual con variante de color precompuesta.`
+      }));
+    }
     const style=styles[garment.id];
     if(!style)return [];
-    return [{photo:`assets/modelos/${style}-base.webp`,mask:`assets/modelos/${style}-mascara.png`,exact:false,
-      caption:`Simulación del color ${color.name} en ${garment.name}. La fotografía conserva modelo, pose y fondo; la textura del tejido es ilustrativa.`}];
+    return [{photo:`assets/modelos/${style}-base.webp`,mask:`assets/modelos/${style}-mascara.png`,exact:false,preRendered:false,
+      caption:`Simulación del color ${color.name} en ${garment.name}. La textura del tejido es ilustrativa.`}];
   }
+  TV.licraVestidos=licraVestidos;
   TV.getGallery=getGallery;
 })(window.TelaViva=window.TelaViva||{});
