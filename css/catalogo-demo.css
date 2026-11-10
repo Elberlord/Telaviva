@@ -1,0 +1,5 @@
+/* Tela Viva v1.11: exhibición de Licra únicamente, no se eliminan otras imágenes. */
+.fabric-tiles { grid-template-columns: minmax(180px, 260px); justify-content: start; }
+@media (max-width: 680px) {
+  .fabric-tiles { grid-template-columns: minmax(160px, 240px); }
+}

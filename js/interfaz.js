@@ -20,7 +20,7 @@
     TV.$('modelPrev').addEventListener('click',()=>TV.changeSlide(-1));
     TV.$('modelNext').addEventListener('click',()=>TV.changeSlide(1));
     TV.$('quoteButton').addEventListener('click',TV.quote);TV.$('saveButton').addEventListener('click',TV.save);
-    TV.$('resetButton').addEventListener('click',()=>{Object.assign(TV.state,{garment:'vestido',fabric:'lino',color:0,size:'M',quantity:1,notes:'',slide:0});TV.$('notesInput').value='';TV.notice('');render();});
+    TV.$('resetButton').addEventListener('click',()=>{Object.assign(TV.state,{garment:'vestido',fabric:'licra',color:0,size:'M',quantity:1,notes:'',slide:0});TV.$('notesInput').value='';TV.notice('');render();});
     TV.$('year').textContent=String(new Date().getFullYear());render();
   }
   document.addEventListener('DOMContentLoaded',init);TV.render=render;
